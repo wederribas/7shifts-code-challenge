@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.use(locationsController.load);
 router.get("/", locationsController.list);
+router.get("/:locationId", locationsController.getLocation);
 router.get(
   "/:locationId/worked-hours",
   locationsController.getLocationWorkedHours

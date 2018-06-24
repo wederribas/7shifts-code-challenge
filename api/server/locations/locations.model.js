@@ -35,6 +35,10 @@ class Locations {
     });
   }
 
+  get(locationId) {
+    return this.locationsList[locationId];
+  }
+
   getWorkedHours() {
     return this.locationPunches;
   }

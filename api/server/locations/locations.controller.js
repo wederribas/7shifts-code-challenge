@@ -6,8 +6,8 @@ const locations = new Locations(constants.LOCATIONS_ENDPOINT);
 function load(req, res, next) {
   return locations
     .load()
-    .then(locations => {
-      locations.locationsList = locations;
+    .then(data => {
+      locations.locationsList = data;
       return next();
     })
     .catch(error => next(error));
@@ -24,7 +24,13 @@ function loadPunches(req, res, next) {
 }
 
 function list(req, res, next) {
-  return res.json(req.locations);
+  return res.json(locations.locationsList);
+}
+
+function getLocation(req, res, next) {
+  const { locationId } = req.params;
+
+  return res.json(locations.get(locationId));
 }
 
 function getLocationWorkedHours(req, res, next) {
@@ -37,5 +43,6 @@ module.exports = {
   load,
   loadPunches,
   list,
+  getLocation,
   getLocationWorkedHours
 };
