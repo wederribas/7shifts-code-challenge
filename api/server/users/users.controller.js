@@ -23,6 +23,16 @@ function loadPunches(req, res, next) {
     .catch(error => next(error));
 }
 
+function loadLocation(req, res, next) {
+  return users
+    .loadLocation(req.params["locationId"])
+    .then(data => {
+      users.userLocation = data;
+      return next();
+    })
+    .catch(error => next(error));
+}
+
 function list(req, res, next) {
   return res.json(users.usersList);
 }
@@ -42,6 +52,7 @@ function getUserWorkedHours(req, res, next) {
 module.exports = {
   load,
   loadPunches,
+  loadLocation,
   list,
   getUser,
   getUserWorkedHours

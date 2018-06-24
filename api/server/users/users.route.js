@@ -12,5 +12,6 @@ router.get(
 );
 
 router.param("userId", usersController.loadPunches);
+router.param("locationId", usersController.loadLocation);
 
 module.exports = router;

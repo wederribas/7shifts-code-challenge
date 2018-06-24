@@ -1,11 +1,13 @@
 const fetch = require("node-fetch");
 const constants = require("../../config/constants");
+const calculateWorkedHours = require("../../helpers/workHoursCalc");
 
 class Users {
   constructor(apiURL) {
     this.url = apiURL;
     this.usersList = {};
     this.userPunches = {};
+    this.userLocation = {};
   }
 
   load() {
@@ -24,12 +26,20 @@ class Users {
     }).then(resp => resp.json());
   }
 
+  loadLocation(locationId) {
+    return fetch(`${constants.HOSTNAME}/api/locations/${locationId}`, {
+      headers: {
+        "content-type": "application/json"
+      }
+    }).then(resp => resp.json());
+  }
+
   get(locationId, userId) {
     return this.usersList[locationId][userId];
   }
 
   getWorkedHours() {
-    return this.userPunches;
+    return calculateWorkedHours(this.userLocation, this.userPunches);
   }
 }
 
