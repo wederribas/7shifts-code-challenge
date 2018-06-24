@@ -20,7 +20,7 @@ function list(req, res, next) {
 function getUserPunches(req, res, next) {
   const { userId } = req.params;
 
-  return res.json(timePunches.getPunches(userId));
+  return res.json(timePunches.getUserPunches(userId));
 }
 
 module.exports = {

@@ -14,8 +14,17 @@ class TimePunches {
     }).then(resp => resp.json());
   }
 
-  getPunches(userId) {
-    return this.punchesList[userId];
+  getUserPunches(userId) {
+    const punches = this.punchesList;
+
+    let filteredPunches = [];
+    for (let punch in punches) {
+      if (punches[punch].userId == userId) {
+        filteredPunches.push(punches[punch]);
+      }
+    }
+
+    return filteredPunches;
   }
 }
 
