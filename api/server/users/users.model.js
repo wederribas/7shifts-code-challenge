@@ -3,6 +3,7 @@ const fetch = require("node-fetch");
 class Users {
   constructor(apiURL) {
     this.url = apiURL;
+    this.usersList = {};
   }
 
   load() {
@@ -11,6 +12,10 @@ class Users {
         "content-type": "application/json"
       }
     }).then(resp => resp.json());
+  }
+
+  get(locationId, userId) {
+    return this.usersList[locationId][userId];
   }
 }
 

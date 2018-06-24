@@ -1,23 +1,30 @@
 const Users = require("./users.model");
 const apiURL = require("../../config/constants");
 
-function load(req, res, next) {
-  const users = new Users(apiURL.USERS_ENDPOINT);
+const users = new Users(apiURL.USERS_ENDPOINT);
 
+function load(req, res, next) {
   return users
     .load()
-    .then(users => {
-      req.users = users;
+    .then(data => {
+      users.usersList = data;
       return next();
     })
     .catch(error => next(error));
 }
 
 function list(req, res, next) {
-  return res.json(req.users);
+  return res.json(users.usersList);
+}
+
+function getUser(req, res, next) {
+  const { locationId, userId } = req.params;
+
+  return res.json(users.get(locationId, userId));
 }
 
 module.exports = {
   load,
-  list
+  list,
+  getUser
 };
