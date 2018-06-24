@@ -1,23 +1,30 @@
 const TimePunches = require("./timePunches.model");
 const apiURL = require("../../config/constants");
 
-function load(req, res, next) {
-  const timePunches = new TimePunches(apiURL.TIME_PUNCHES_ENDPOINT);
+const timePunches = new TimePunches(apiURL.TIME_PUNCHES_ENDPOINT);
 
+function load(req, res, next) {
   return timePunches
     .load()
-    .then(timePunches => {
-      req.timePunches = timePunches;
+    .then(data => {
+      timePunches.punchesList = data;
       return next();
     })
     .catch(error => next(error));
 }
 
 function list(req, res, next) {
-  return res.json(req.timePunches);
+  return res.json(timePunches.punchesList);
+}
+
+function getUserPunches(req, res, next) {
+  const { userId } = req.params;
+
+  return res.json(timePunches.getPunches(userId));
 }
 
 module.exports = {
   load,
-  list
+  list,
+  getUserPunches
 };

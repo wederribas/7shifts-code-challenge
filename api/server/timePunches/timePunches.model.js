@@ -3,6 +3,7 @@ const fetch = require("node-fetch");
 class TimePunches {
   constructor(apiURL) {
     this.url = apiURL;
+    this.punchesList = {};
   }
 
   load() {
@@ -11,6 +12,10 @@ class TimePunches {
         "content-type": "application/json"
       }
     }).then(resp => resp.json());
+  }
+
+  getPunches(userId) {
+    return this.punchesList[userId];
   }
 }
 
