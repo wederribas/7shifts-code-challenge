@@ -1,7 +1,7 @@
 const TimePunches = require("./timePunches.model");
-const apiURL = require("../../config/constants");
+const constants = require("../../config/constants");
 
-const timePunches = new TimePunches(apiURL.TIME_PUNCHES_ENDPOINT);
+const timePunches = new TimePunches(constants.TIME_PUNCHES_ENDPOINT);
 
 function load(req, res, next) {
   return timePunches
